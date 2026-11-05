@@ -140,3 +140,25 @@ Open `http://localhost:8501` in your browser:
 ```bash
 python -m src.pipeline --input "I want a single-family house with 3 bedrooms and an open kitchen."
 ```
+
+---
+
+## 🔮 Future Work & Production Roadmap
+
+This MVP was intentionally scoped to deliver a high-integrity, zero-dependency Core Data Pipeline (Phase 1 & Phase 2). The following extensions represent the natural roadmap for enterprise integration at Elyra AI:
+
+1. **Langfuse LLMOps & Production Tracing**:
+   - Integrate [Langfuse](https://langfuse.com/) SDK to provide deep distributed tracing across every pipeline run.
+   - Monitor live token consumption, per-request latency percentiles ($p_{50}, p_{95}$), estimated cost per extraction, and prompt drift over time.
+   - Stream model confidence scores and automated evaluation metrics directly into Langfuse dashboards.
+
+2. **Unstructured PDF & Architectural Spec Ingestion**:
+   - Add a document processing worker (e.g., via `pdfplumber` or Docling) to ingest raw PDF floor plan specifications, client questionnaires, and RFP documents.
+
+3. **Building Code Compliance RAG (German DIN / EnEV Standards)**:
+   - Connect PostgreSQL with `pgvector` to query local German building regulations (e.g., minimum ceiling heights, fire separation laws, energy efficiency insulation standards) to validate extracted constraints against official codes.
+
+4. **Downstream IFC / BIM File Generation**:
+   - Convert normalized relational spaces and constraints directly into Industry Foundation Classes (IFC) schema or parametric CAD inputs for automated drafting.
+
+

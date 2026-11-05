@@ -52,7 +52,8 @@ Build a defensive, production-grade **Validated & Traceable Data Pipeline** and 
 
 ## Out of Scope
 - PDF / OCR processing (slated for Future Work).
-- Architectural code compliance RAG / pgvector retrieval.
-- CAD / BIM geometry generation (IFC exports).
+- Architectural code compliance RAG / pgvector retrieval (slated for Future Work).
+- CAD / BIM geometry generation (IFC exports) (slated for Future Work).
+- Full Langfuse LLMOps distributed tracing platform (slated for Future Work; currently covered by native structured logging and database audit trails).
 - Authentication / Multi-tenant RBAC.
 
