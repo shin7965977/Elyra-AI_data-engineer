@@ -1,0 +1,39 @@
+{
+  "case_id": "case_05_contradiction_open_vs_closed",
+  "category": "contradiction_and_edge_cases",
+  "title": "Contradictory Open and Enclosed Kitchen Layout",
+  "transcript": "Please plan our house. We want the kitchen to be completely open plan with the living room so we can talk to guests, but the kitchen must also be completely separated and closed off from the living room to stop cooking odors.",
+  "ground_truth": {
+    "project": {
+      "project_name": "Contradictory Layout House",
+      "building_type": "single_family_house"
+    },
+    "spaces": [
+      {
+        "space_id": "kitchen_1",
+        "space_type": "kitchen",
+        "quantity": 1,
+        "relationships": [
+          {
+            "relation_type": "open_plan_with",
+            "target_space": "living_room_1",
+            "provenance": { "quote": "kitchen to be completely open plan with the living room" }
+          },
+          {
+            "relation_type": "separated_from",
+            "target_space": "living_room_1",
+            "provenance": { "quote": "kitchen must also be completely separated and closed off from the living room" }
+          }
+        ],
+        "provenance": { "quote": "kitchen" }
+      },
+      {
+        "space_id": "living_room_1",
+        "space_type": "living_room",
+        "quantity": 1,
+        "provenance": { "quote": "living room" }
+      }
+    ],
+    "constraints": []
+  }
+}

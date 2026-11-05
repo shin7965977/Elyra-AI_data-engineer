@@ -1,0 +1,31 @@
+{
+  "case_id": "case_08_multiturn_revised_area",
+  "category": "multiturn_revisions",
+  "title": "Customer Revising Living Room Area Constraint",
+  "transcript": "Buyer: I want a living room with exactly 30 square meters. \nArchitect: 30 m2 noted. \nBuyer: Actually, I just measured our grand piano and sofa set. The living room really needs to be at least 42 square meters minimum.",
+  "ground_truth": {
+    "project": {
+      "project_name": "Piano Living Room House",
+      "building_type": "single_family_house"
+    },
+    "spaces": [
+      {
+        "space_id": "living_room_1",
+        "space_type": "living_room",
+        "quantity": 1,
+        "provenance": { "quote": "living room" }
+      }
+    ],
+    "constraints": [
+      {
+        "constraint_id": "c_lr_min_area",
+        "target_space": "living_room_1",
+        "attribute": "minimum_area",
+        "operator": ">=",
+        "value": 42.0,
+        "unit": "m2",
+        "provenance": { "quote": "at least 42 square meters" }
+      }
+    ]
+  }
+}

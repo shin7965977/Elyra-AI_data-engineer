@@ -1,0 +1,36 @@
+{
+  "case_id": "case_03_ambiguous_missing_dimensions",
+  "category": "ambiguous_missing_details",
+  "title": "Ambiguous Requirements Without Dimensions",
+  "transcript": "I am thinking about a single family house with a huge master bedroom, a comfy guest bedroom, and a very spacious open kitchen. We don't have exact square meter numbers yet.",
+  "ground_truth": {
+    "project": {
+      "project_name": "Ambiguous Single Family House",
+      "building_type": "single_family_house"
+    },
+    "spaces": [
+      {
+        "space_id": "master_bedroom_1",
+        "space_type": "master_bedroom",
+        "quantity": 1,
+        "notes": "huge master bedroom",
+        "provenance": { "quote": "huge master bedroom" }
+      },
+      {
+        "space_id": "bedroom_guest",
+        "space_type": "bedroom",
+        "quantity": 1,
+        "notes": "comfy guest bedroom",
+        "provenance": { "quote": "comfy guest bedroom" }
+      },
+      {
+        "space_id": "kitchen_1",
+        "space_type": "kitchen",
+        "quantity": 1,
+        "notes": "very spacious open kitchen",
+        "provenance": { "quote": "very spacious open kitchen" }
+      }
+    ],
+    "constraints": []
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "case_id": "case_06_contradiction_extreme_dimensions",
+  "category": "contradiction_and_edge_cases",
+  "title": "Extreme and Physically Impossible Room Dimensions",
+  "transcript": "We are designing a micro apartment. The bedroom should be 1.5 square meters, and the living room should be 500 square meters.",
+  "ground_truth": {
+    "project": {
+      "project_name": "Extreme Dimensions Apartment",
+      "building_type": "apartment"
+    },
+    "spaces": [
+      {
+        "space_id": "bedroom_1",
+        "space_type": "bedroom",
+        "quantity": 1,
+        "provenance": { "quote": "bedroom" }
+      },
+      {
+        "space_id": "living_room_1",
+        "space_type": "living_room",
+        "quantity": 1,
+        "provenance": { "quote": "living room" }
+      }
+    ],
+    "constraints": [
+      {
+        "constraint_id": "c_br_micro",
+        "target_space": "bedroom_1",
+        "attribute": "area",
+        "operator": "==",
+        "value": 1.5,
+        "unit": "m2",
+        "provenance": { "quote": "1.5 square meters" }
+      },
+      {
+        "constraint_id": "c_lr_giant",
+        "target_space": "living_room_1",
+        "attribute": "area",
+        "operator": "==",
+        "value": 500.0,
+        "unit": "m2",
+        "provenance": { "quote": "500 square meters" }
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "case_id": "case_02_standard_villa",
+  "category": "standard_happy_path",
+  "title": "Two-Story Luxury Villa",
+  "transcript": "We want to construct a modern two-story villa. We require four bedrooms, three bathrooms, a large living room of 45 square meters, a closed kitchen, and a double garage.",
+  "ground_truth": {
+    "project": {
+      "project_name": "Two-Story Luxury Villa",
+      "building_type": "villa",
+      "target_stories": 2
+    },
+    "spaces": [
+      {
+        "space_id": "bedroom_group",
+        "space_type": "bedroom",
+        "quantity": 4,
+        "provenance": { "quote": "four bedrooms" }
+      },
+      {
+        "space_id": "bathroom_group",
+        "space_type": "bathroom",
+        "quantity": 3,
+        "provenance": { "quote": "three bathrooms" }
+      },
+      {
+        "space_id": "living_room_1",
+        "space_type": "living_room",
+        "quantity": 1,
+        "provenance": { "quote": "large living room" }
+      },
+      {
+        "space_id": "kitchen_1",
+        "space_type": "kitchen",
+        "quantity": 1,
+        "provenance": { "quote": "closed kitchen" }
+      },
+      {
+        "space_id": "garage_1",
+        "space_type": "garage",
+        "quantity": 1,
+        "provenance": { "quote": "double garage" }
+      }
+    ],
+    "constraints": [
+      {
+        "constraint_id": "c_lr_area",
+        "target_space": "living_room_1",
+        "attribute": "area",
+        "operator": "==",
+        "value": 45.0,
+        "unit": "m2",
+        "provenance": { "quote": "45 square meters" }
+      }
+    ]
+  }
+}

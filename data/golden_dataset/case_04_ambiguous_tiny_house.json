@@ -1,0 +1,38 @@
+{
+  "case_id": "case_04_ambiguous_tiny_house",
+  "category": "ambiguous_missing_details",
+  "title": "Minimalist Tiny House Setup",
+  "transcript": "We want an eco-friendly tiny house. It must fit a loft bedroom, a compact bathroom, and a multifunctional living and kitchen space under 35 square meters total.",
+  "ground_truth": {
+    "project": {
+      "project_name": "Eco Tiny House",
+      "building_type": "tiny_house",
+      "total_area_target_m2": 35.0,
+      "provenance": { "quote": "under 35 square meters total" }
+    },
+    "spaces": [
+      {
+        "space_id": "bedroom_loft",
+        "space_type": "bedroom",
+        "quantity": 1,
+        "notes": "loft bedroom",
+        "provenance": { "quote": "loft bedroom" }
+      },
+      {
+        "space_id": "bathroom_compact",
+        "space_type": "bathroom",
+        "quantity": 1,
+        "notes": "compact bathroom",
+        "provenance": { "quote": "compact bathroom" }
+      },
+      {
+        "space_id": "living_kitchen_multi",
+        "space_type": "living_room",
+        "quantity": 1,
+        "notes": "multifunctional living and kitchen space",
+        "provenance": { "quote": "multifunctional living and kitchen space" }
+      }
+    ],
+    "constraints": []
+  }
+}

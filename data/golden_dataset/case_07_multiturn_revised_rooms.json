@@ -1,0 +1,33 @@
+{
+  "case_id": "case_07_multiturn_revised_rooms",
+  "category": "multiturn_revisions",
+  "title": "Customer Revising Room Count Mid-Conversation",
+  "transcript": "Client: We need a duplex with 2 bedrooms and 1 bathroom. \nAdvisor: Understood, duplex with 2 bedrooms. \nClient: Wait, my in-laws are coming to live with us! Scratch that, make it 4 bedrooms and 2 bathrooms instead, plus add a powder room.",
+  "ground_truth": {
+    "project": {
+      "project_name": "Revised Duplex Project",
+      "building_type": "duplex"
+    },
+    "spaces": [
+      {
+        "space_id": "bedroom_group",
+        "space_type": "bedroom",
+        "quantity": 4,
+        "provenance": { "quote": "make it 4 bedrooms" }
+      },
+      {
+        "space_id": "bathroom_group",
+        "space_type": "bathroom",
+        "quantity": 2,
+        "provenance": { "quote": "2 bathrooms" }
+      },
+      {
+        "space_id": "powder_room_1",
+        "space_type": "powder_room",
+        "quantity": 1,
+        "provenance": { "quote": "powder room" }
+      }
+    ],
+    "constraints": []
+  }
+}
