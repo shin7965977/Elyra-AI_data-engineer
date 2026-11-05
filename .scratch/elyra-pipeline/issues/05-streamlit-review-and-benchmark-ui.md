@@ -5,11 +5,10 @@ Build an interactive Streamlit application (`src/ui/app.py`). Include a sidebar 
 
 **Blocked by:** 03: Dual-Mode Persistence & CLI ETL Pipeline, 04: Golden Dataset (8 Cases) & Quantitative Evaluation Engine
 
-**Status:** ready-for-agent
+**Status:** closed
 
-- [ ] Streamlit sidebar with API key input, DB toggle/indicator, and sample transcript selector.
-- [ ] Tab 1 with Live Extraction, Validation Badges, side-by-side Canonical JSON and SQL Database Inspector, and Human Approval action.
-- [ ] Tab 2 with Golden Dataset selector, Side-by-Side Ground Truth vs LLM diff, and full benchmark metrics display.
-- [ ] Root `README.md` documenting architecture, Elyra problem-solution alignment, and reproduction instructions.
-- [ ] End-to-end smoke test verifying application components import and initialize cleanly.
-
+- [x] Streamlit sidebar with API key input, DB toggle/indicator, and sample transcript selector.
+- [x] Tab 1 with Live Extraction, Validation Badges, side-by-side Canonical JSON and SQL Database Inspector, and Human Approval action.
+- [x] Tab 2 with Golden Dataset selector, Side-by-Side Ground Truth vs LLM diff, and full benchmark metrics display.
+- [x] Root `README.md` documenting architecture, Elyra problem-solution alignment, and reproduction instructions.
+- [x] End-to-end smoke test verifying application components import and initialize cleanly.
