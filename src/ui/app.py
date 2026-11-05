@@ -1,5 +1,13 @@
 """Streamlit Interactive Application: Live Pipeline & Ground Truth Benchmark."""
 
+import sys
+from pathlib import Path
+
+# Add project root to sys.path so 'src' can be imported cleanly
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 import json
 import os
 import streamlit as st
@@ -321,3 +329,4 @@ with tab_benchmark:
                     "Grounding": f"{m.grounding_score:.1%}",
                 })
             st.dataframe(pd.DataFrame(summary_rows), use_container_width=True)
+
