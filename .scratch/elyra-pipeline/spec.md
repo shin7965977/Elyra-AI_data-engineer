@@ -55,3 +55,4 @@ Build a defensive, production-grade **Validated & Traceable Data Pipeline** and 
 - Architectural code compliance RAG / pgvector retrieval.
 - CAD / BIM geometry generation (IFC exports).
 - Authentication / Multi-tenant RBAC.
+

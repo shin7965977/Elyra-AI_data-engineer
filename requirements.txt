@@ -1,0 +1,11 @@
+pydantic>=2.6.0
+google-genai>=0.1.1
+sqlmodel>=0.0.16
+sqlalchemy>=2.0.25
+psycopg2-binary>=2.9.9
+streamlit>=1.31.0
+loguru>=0.7.2
+python-dotenv>=1.0.1
+tenacity>=8.2.3
+pytest>=8.0.0
+

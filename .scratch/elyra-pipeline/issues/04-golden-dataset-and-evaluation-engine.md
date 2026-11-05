@@ -11,3 +11,4 @@ Curate an 8-case Golden Dataset spanning 4 realistic pre-fab residential housing
 - [ ] Evaluation runner in `src/evaluation/benchmark.py` calculating Space F1, Constraint Accuracy, and Grounding Match.
 - [ ] Pytest test suite in `tests/test_benchmark.py` ensuring metrics are computed accurately.
 - [ ] Formatted Markdown benchmark report generation summarizing field-level accuracy.
+

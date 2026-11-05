@@ -12,3 +12,4 @@ Implement deterministic character offset computation (`char_start`, `char_end`) 
 - [ ] Tier 2 Architectural sanity rule engine checking residential room size limits (e.g. 3m² <= bedroom area <= 300m²).
 - [ ] Tier 3 Conflict detector identifying opposing spatial requirements.
 - [ ] Unit tests in `tests/test_validators.py` covering positive pass, out-of-range warnings, contradiction flags, and hallucinated quote detection.
+

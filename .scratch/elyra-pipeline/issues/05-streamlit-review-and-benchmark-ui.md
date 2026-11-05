@@ -12,3 +12,4 @@ Build an interactive Streamlit application (`src/ui/app.py`). Include a sidebar 
 - [ ] Tab 2 with Golden Dataset selector, Side-by-Side Ground Truth vs LLM diff, and full benchmark metrics display.
 - [ ] Root `README.md` documenting architecture, Elyra problem-solution alignment, and reproduction instructions.
 - [ ] End-to-end smoke test verifying application components import and initialize cleanly.
+

@@ -13,3 +13,4 @@ Implement the SQLAlchemy 2.0 ORM relational layer modeling `projects`, `spaces`,
 - [ ] End-to-end `run_pipeline(text, client, db_session)` pipeline orchestrator.
 - [ ] CLI command-line entrypoint with verbose logging and output reporting.
 - [ ] Integration tests in `tests/test_pipeline.py` verifying full ingest-to-database flow.
+

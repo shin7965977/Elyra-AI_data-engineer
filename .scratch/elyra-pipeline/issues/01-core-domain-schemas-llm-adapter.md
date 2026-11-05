@@ -5,10 +5,10 @@ Create the strongly-typed Pydantic v2 Canonical Schemas (`ProjectMetadata`, `Spa
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** closed
 
-- [ ] Pydantic v2 domain models for Project, Space, Constraint, and Provenance with strict type enforcement.
-- [ ] Abstract `LLMClientProtocol` defining the standard extraction interface.
-- [ ] `GoogleGenAIClient` utilizing `google-genai` SDK with `gemini-3.8-flash` and structured JSON schema enforcement.
-- [ ] `MockLLMClient` allowing injection of canned responses for zero-cost, deterministic testing.
-- [ ] Unit tests in `tests/test_schemas.py` and `tests/test_extractors.py` passing with 100% green status.
+- [x] Pydantic v2 domain models for Project, Space, Constraint, and Provenance with strict type enforcement.
+- [x] Abstract `LLMClientProtocol` defining the standard extraction interface.
+- [x] `GoogleGenAIClient` utilizing `google-genai` SDK with `gemini-3.8-flash` and structured JSON schema enforcement.
+- [x] `MockLLMClient` allowing injection of canned responses for zero-cost, deterministic testing.
+- [x] Unit tests in `tests/test_schemas.py` and `tests/test_extractors.py` passing with 100% green status.
