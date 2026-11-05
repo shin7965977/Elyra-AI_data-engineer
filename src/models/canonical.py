@@ -114,7 +114,7 @@ class ProjectMetadata(BaseModel):
     project_name: Optional[str] = Field(default="PreFab Residential Project")
     building_type: BuildingType = Field(default=BuildingType.single_family_house)
     target_stories: Optional[int] = Field(default=None, ge=1, le=10)
-    total_area_target_m2: Optional[float] = Field(default=None, gt=0)
+    total_area_target_m2: Optional[float] = Field(default=None, ge=0.0)
     budget_notes: Optional[str] = None
     provenance: Optional[FieldProvenance] = None
 
