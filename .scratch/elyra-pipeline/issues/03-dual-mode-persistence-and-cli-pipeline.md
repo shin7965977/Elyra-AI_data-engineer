@@ -5,12 +5,11 @@ Implement the SQLAlchemy 2.0 ORM relational layer modeling `projects`, `spaces`,
 
 **Blocked by:** 02: Deterministic Traceability & 3-Tier Validation Harness
 
-**Status:** ready-for-agent
+**Status:** closed
 
-- [ ] SQLAlchemy 2.0 ORM models for `ProjectRecord`, `SpaceRecord`, `ConstraintRecord`, `ValidationLogRecord`.
-- [ ] Database session manager supporting PostgreSQL with zero-config SQLite fallback.
-- [ ] `docker-compose.yml` defining an isolated PostgreSQL 16 service.
-- [ ] End-to-end `run_pipeline(text, client, db_session)` pipeline orchestrator.
-- [ ] CLI command-line entrypoint with verbose logging and output reporting.
-- [ ] Integration tests in `tests/test_pipeline.py` verifying full ingest-to-database flow.
-
+- [x] SQLAlchemy 2.0 ORM models for `ProjectRecord`, `SpaceRecord`, `ConstraintRecord`, `ValidationLogRecord`.
+- [x] Database session manager supporting PostgreSQL with zero-config SQLite fallback.
+- [x] `docker-compose.yml` defining an isolated PostgreSQL 16 service.
+- [x] End-to-end `run_pipeline(text, client, db_session)` pipeline orchestrator.
+- [x] CLI command-line entrypoint with verbose logging and output reporting.
+- [x] Integration tests in `tests/test_pipeline.py` verifying full ingest-to-database flow.
