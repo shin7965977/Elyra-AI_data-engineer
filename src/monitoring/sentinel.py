@@ -106,3 +106,4 @@ def report_error(
     if not _default_sentinel:
         return False
     return _default_sentinel.report_error(error, stack_trace=stack_trace, route=route, metadata=metadata)
+

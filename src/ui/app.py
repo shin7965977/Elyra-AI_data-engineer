@@ -26,6 +26,7 @@ from src.evaluation.benchmark import (
     run_full_benchmark,
 )
 from src.monitoring.sentinel import init_sentinel, get_sentinel
+from src.monitoring.slack_notifier import dispatch_to_slack
 
 # Page configuration
 st.set_page_config(
@@ -96,29 +97,44 @@ with st.sidebar:
         st.info(f"Connected: **{db_type}** (Zero-Config Fallback)")
 
     st.markdown("---")
-    st.subheader("🚨 Slack AI Sentinel")
-    sentinel_url = st.text_input(
-        "Sentinel Endpoint URL",
-        value=os.getenv("SLACK_SENTINEL_URL", ""),
-        placeholder="https://your-slack-bot.vercel.app",
-        help="Endpoint of your Slack AI Sentinel agent (https://github.com/shin7965977/slack-ai-sentinel)",
+    st.subheader("🚨 Slack AI Sentinel (Zero-Vercel)")
+    slack_url = st.text_input(
+        "Slack Webhook URL",
+        value=os.getenv("SLACK_WEBHOOK_URL") or os.getenv("SLACK_SENTINEL_URL", ""),
+        placeholder="https://hooks.slack.com/services/...",
+        help="Paste your Slack Incoming Webhook URL. Pipeline errors will be diagnosed by Gemini and posted directly to Slack!",
     )
     sentinel = None
-    if sentinel_url:
-        sentinel = init_sentinel(sentinel_url, service_name="Elyra AI Data Engine")
-        st.success("🟢 Sentinel Monitoring Active")
+    if slack_url:
+        st.success("🟢 Slack Incident Alerting Active")
+        if "hooks.slack.com" in slack_url:
+            st.caption("Mode: Direct Python Webhook with Gemini AI Diagnosis")
+        else:
+            sentinel = init_sentinel(slack_url, service_name="Elyra AI Data Engine")
+            st.caption("Mode: Sentinel Telemetry Proxy")
+
         if st.button("🧪 Send Test Alert to Slack"):
-            ok = sentinel.report_error(
-                error="[Test Alert] Streamlit pipeline error monitoring ping from Elyra AI!",
-                route="/streamlit/test_button",
-                metadata={"status": "testing", "triggered_by": "user"},
-            )
-            if ok:
-                st.toast("✅ Test incident sent to Slack Sentinel!")
+            test_ok = False
+            if "hooks.slack.com" in slack_url:
+                test_ok = dispatch_to_slack(
+                    error="[Test Alert] Streamlit pipeline health check from Elyra AI!",
+                    webhook_url=slack_url,
+                    route="/streamlit/test_button",
+                    gemini_api_key=user_api_key,
+                )
+            elif sentinel:
+                test_ok = sentinel.report_error(
+                    error="[Test Alert] Streamlit pipeline error monitoring ping from Elyra AI!",
+                    route="/streamlit/test_button",
+                    metadata={"status": "testing", "triggered_by": "user"},
+                )
+
+            if test_ok:
+                st.toast("✅ Test alert with Gemini diagnosis sent to Slack!")
             else:
-                st.warning("⚠️ Could not reach Sentinel endpoint. Check the URL.")
+                st.warning("⚠️ Could not reach Slack endpoint. Please check your Webhook URL.")
     else:
-        st.caption("Provide Sentinel URL or set `SLACK_SENTINEL_URL` to receive instant Slack alerts on exceptions.")
+        st.caption("Provide a Slack Webhook URL to get instant Slack alerts + Gemini AI diagnosis when errors occur.")
 
     st.markdown("---")
     st.subheader("📋 Quick Fill Sample")
@@ -180,18 +196,30 @@ with tab_live:
                     st.session_state["latest_result"] = pipeline_result
                 except Exception as e:
                     st.error(f"Pipeline error: {e}")
-                    sentinel = get_sentinel()
-                    if sentinel:
-                        sentinel.report_error(
+                    # Dispatch to Slack Webhook with Gemini AI Diagnosis (Zero-Vercel)
+                    if slack_url and "hooks.slack.com" in slack_url:
+                        dispatch_to_slack(
                             error=e,
+                            webhook_url=slack_url,
                             stack_trace=traceback.format_exc(),
                             route="/streamlit/live_extraction",
-                            metadata={
-                                "input_length": len(input_text),
-                                "mode": "mock" if use_mock_mode else "gemini",
-                            },
+                            gemini_api_key=user_api_key,
+                            metadata={"input_length": len(input_text), "mode": "mock" if use_mock_mode else "gemini"},
                         )
-                        st.info("🚨 Incident telemetry automatically dispatched to Slack AI Sentinel!")
+                        st.info("🚨 Incident with Gemini AI Diagnosis dispatched directly to your Slack channel!")
+                    else:
+                        sentinel = get_sentinel()
+                        if sentinel:
+                            sentinel.report_error(
+                                error=e,
+                                stack_trace=traceback.format_exc(),
+                                route="/streamlit/live_extraction",
+                                metadata={
+                                    "input_length": len(input_text),
+                                    "mode": "mock" if use_mock_mode else "gemini",
+                                },
+                            )
+                            st.info("🚨 Incident telemetry automatically dispatched to Slack AI Sentinel!")
 
     if "latest_result" in st.session_state:
         res = st.session_state["latest_result"]
