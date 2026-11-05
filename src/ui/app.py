@@ -10,6 +10,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import json
 import os
+import traceback
 import streamlit as st
 import pandas as pd
 from sqlalchemy import text
@@ -24,6 +25,7 @@ from src.evaluation.benchmark import (
     evaluate_extraction,
     run_full_benchmark,
 )
+from src.monitoring.sentinel import init_sentinel, get_sentinel
 
 # Page configuration
 st.set_page_config(
@@ -94,6 +96,31 @@ with st.sidebar:
         st.info(f"Connected: **{db_type}** (Zero-Config Fallback)")
 
     st.markdown("---")
+    st.subheader("🚨 Slack AI Sentinel")
+    sentinel_url = st.text_input(
+        "Sentinel Endpoint URL",
+        value=os.getenv("SLACK_SENTINEL_URL", ""),
+        placeholder="https://your-slack-bot.vercel.app",
+        help="Endpoint of your Slack AI Sentinel agent (https://github.com/shin7965977/slack-ai-sentinel)",
+    )
+    sentinel = None
+    if sentinel_url:
+        sentinel = init_sentinel(sentinel_url, service_name="Elyra AI Data Engine")
+        st.success("🟢 Sentinel Monitoring Active")
+        if st.button("🧪 Send Test Alert to Slack"):
+            ok = sentinel.report_error(
+                error="[Test Alert] Streamlit pipeline error monitoring ping from Elyra AI!",
+                route="/streamlit/test_button",
+                metadata={"status": "testing", "triggered_by": "user"},
+            )
+            if ok:
+                st.toast("✅ Test incident sent to Slack Sentinel!")
+            else:
+                st.warning("⚠️ Could not reach Sentinel endpoint. Check the URL.")
+    else:
+        st.caption("Provide Sentinel URL or set `SLACK_SENTINEL_URL` to receive instant Slack alerts on exceptions.")
+
+    st.markdown("---")
     st.subheader("📋 Quick Fill Sample")
     selected_sample = st.selectbox("Choose a scenario:", list(SAMPLE_PROMPTS.keys()))
     if st.button("Load Scenario into Input"):
@@ -153,6 +180,18 @@ with tab_live:
                     st.session_state["latest_result"] = pipeline_result
                 except Exception as e:
                     st.error(f"Pipeline error: {e}")
+                    sentinel = get_sentinel()
+                    if sentinel:
+                        sentinel.report_error(
+                            error=e,
+                            stack_trace=traceback.format_exc(),
+                            route="/streamlit/live_extraction",
+                            metadata={
+                                "input_length": len(input_text),
+                                "mode": "mock" if use_mock_mode else "gemini",
+                            },
+                        )
+                        st.info("🚨 Incident telemetry automatically dispatched to Slack AI Sentinel!")
 
     if "latest_result" in st.session_state:
         res = st.session_state["latest_result"]

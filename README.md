@@ -70,6 +70,7 @@ This codebase demonstrates five core engineering principles:
 - **Semantic Conflict Detector**: Flags impossible spatial relationships (e.g., `open_plan_with` and `separated_from` on the same room) and contradictory numerical constraints.
 
 ### 5. Production Observability & Auditability
+- **Real-Time Slack Incident Telemetry**: Integrated with [Slack AI Sentinel](https://github.com/shin7965977/slack-ai-sentinel) (`src/monitoring/sentinel.py`) to automatically dispatch stack traces, error fingerprints, and contextual metadata to your Slack channel on pipeline crashes or API outages.
 - **Structured Logging**: `loguru` outputs contextual logs tracking latency, character counts, and validation results.
 - **Full Relational Audit Trail**: The `projects` table stores the raw unparsed customer text (`raw_transcript`) alongside the raw model response (`raw_payload`) to guarantee full reproducibility.
 - **Human-in-the-Loop Review**: Projects flagged with warnings or errors require human approval before being marked as `APPROVED` for downstream BIM/CAD systems.
