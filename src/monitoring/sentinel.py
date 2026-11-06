@@ -25,7 +25,7 @@ class SlackSentinel:
         route: str = "/streamlit",
         metadata: Optional[Dict[str, Any]] = None,
     ) -> bool:
-        """Report an error or exception directly to the Slack Sentinel Telemetry API."""
+        """Report an error or exception directly to Slack Sentinel or Slack Incoming Webhook."""
         if not self.endpoint_url:
             return False
 
@@ -34,12 +34,81 @@ class SlackSentinel:
             if not stack_trace and isinstance(error, Exception):
                 stack_trace = "".join(traceback.format_exception(type(error), error, error.__traceback__))
 
+            fingerprint = f"elyra-{abs(hash(error_message)) % 1000000:x}"
+
+            # 1. Direct Slack Incoming Webhook Support (Zero-Vercel mode with interactive buttons)
+            if self.endpoint_url.startswith("https://hooks.slack.com"):
+                blocks = [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "🚨 Elyra AI Pipeline: Error Incident Alert",
+                            "emoji": True,
+                        },
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {"type": "mrkdwn", "text": f"*Service:*\n{self.service_name}"},
+                            {"type": "mrkdwn", "text": f"*Route:*\n`{route}`"},
+                        ],
+                    },
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": f"*❌ Error Message:*\n```{error_message[:1200]}```",
+                        },
+                    },
+                ]
+
+                if stack_trace:
+                    blocks.append({
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": f"*Stack Trace Snippet:*\n```{stack_trace[:1500]}```",
+                        },
+                    })
+
+                # Interactive Action Buttons
+                blocks.append({
+                    "type": "actions",
+                    "elements": [
+                        {
+                            "type": "button",
+                            "text": {"type": "plain_text", "text": "🔄 Re-diagnose", "emoji": True},
+                            "style": "primary",
+                            "action_id": "trigger_rediasgnosis",
+                            "value": fingerprint,
+                        },
+                        {
+                            "type": "button",
+                            "text": {"type": "plain_text", "text": "✅ Acknowledge", "emoji": True},
+                            "action_id": "acknowledge_incident",
+                            "value": fingerprint,
+                        },
+                        {
+                            "type": "button",
+                            "text": {"type": "plain_text", "text": "📋 Copy Fingerprint", "emoji": True},
+                            "action_id": "copy_fingerprint",
+                            "value": fingerprint,
+                        },
+                    ],
+                })
+
+                logger.info("[SlackSentinel] Sending Block Kit alert to Slack Webhook...")
+                res = requests.post(self.endpoint_url, json={"blocks": blocks}, timeout=5)
+                return res.status_code == 200
+
+            # 2. Vercel Slack AI Sentinel Telemetry API Mode
             payload = {
                 "message": error_message,
                 "stack": stack_trace or "",
                 "route": route,
                 "userAgent": f"{self.service_name} (Python {sys.version.split()[0]})",
-                "fingerprint": f"elyra-{abs(hash(error_message)) % 1000000:x}",
+                "fingerprint": fingerprint,
             }
 
             if metadata:
