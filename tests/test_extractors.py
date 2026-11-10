@@ -60,5 +60,6 @@ def test_gemini_client_instantiation():
     # Instantiation without key should log warning and not crash
     client = GoogleGenAIClient(api_key="fake_test_key")
     assert isinstance(client, LLMClientProtocol)
-    assert client.model_name == "gemini-3.8-flash"
+    assert client.model_name == "gemini-3.5-flash-lite"
+    assert client.fallback_model == "gemini-2.5-flash-lite"
 

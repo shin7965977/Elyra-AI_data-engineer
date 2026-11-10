@@ -83,3 +83,4 @@ def ground_extraction(extraction: BuildingRequirementsExtraction, raw_transcript
                 constraint.provenance.confidence = 0.0
 
     return extraction
+

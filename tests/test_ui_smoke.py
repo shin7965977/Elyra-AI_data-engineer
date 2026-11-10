@@ -18,3 +18,4 @@ def test_app_imports_cleanly():
     import src.ui.app
     assert src.ui.app.GOLDEN_CASES is not None
     assert len(src.ui.app.SAMPLE_PROMPTS) >= 5
+

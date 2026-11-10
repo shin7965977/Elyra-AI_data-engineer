@@ -175,3 +175,4 @@ def test_validator_detects_conflicting_constraint_bounds():
     report = validator.validate(extraction)
     assert report.status == ValidationStatus.FAILED
     assert any(i.rule_id == "RULE_IMPOSSIBLE_CONSTRAINT_BOUNDS" for i in report.issues)
+

@@ -164,3 +164,4 @@ def generate_markdown_report(summary: BenchmarkSummary) -> str:
         )
 
     return "\n".join(lines)
+

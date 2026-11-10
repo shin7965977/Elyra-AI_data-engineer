@@ -93,3 +93,4 @@ class ValidationLogRecord(Base):
     message: Mapped[str] = mapped_column(Text, nullable=False)
 
     project: Mapped["ProjectRecord"] = relationship("ProjectRecord", back_populates="validation_logs")
+

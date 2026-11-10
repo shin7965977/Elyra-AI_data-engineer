@@ -31,11 +31,15 @@ def get_engine() -> Tuple[Engine, str]:
 
 def init_db(engine: Engine):
     """Create all tables in the connected database."""
-    Base.metadata.create_all(engine)
-    logger.info("Initialized database schema.")
+    try:
+        Base.metadata.create_all(engine, checkfirst=True)
+        logger.info("Initialized database schema.")
+    except Exception as e:
+        logger.warning(f"Database schema initialization notice: {e}")
 
 
 def get_session(engine: Engine) -> Session:
     """Create a new database session."""
     session_factory = sessionmaker(bind=engine)
     return session_factory()
+

@@ -104,3 +104,4 @@ def test_pipeline_end_to_end():
         assert proj.constraints[0].unit == "m2"
         assert proj.raw_transcript == transcript
         assert "Modern Villa Project" in proj.raw_payload
+
